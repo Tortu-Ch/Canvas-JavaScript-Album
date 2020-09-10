@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, height=device-height, shrink-to-fit=no" name="viewport">
+
+    <title>Cover Art Generator</title>
+    <!-- Favicon-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="plugins/node-waves/waves.css" rel="stylesheet" />
+
+
+    <!-- Custom Css -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="css/themes/all-themes.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+        }
+        .resizable {
+            position: absolute;
+            top: 48px;
+            border: 1px solid #4286f4;
+        }
+        .resizable .resizers{
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        .resizable .resizer{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #4286f4;
+            position: absolute;
+            z-index: 301;
+        }
+        .resizable .resizer.top-left {
+            left: -10px;
+            top:-10px;
+            cursor: nwse-resize; /*resizer cursor*/
+        }
+        .resizable .resizer.top-right {
+            right: -10px;
+            top: -10px;
+            cursor: nesw-resize;
+        }
+        .resizable .resizer.bottom-left {
+            left: -10px;
+            bottom: -10px;
+            cursor: nesw-resize;
+        }
+        .resizable .resizer.bottom-right {
+            right: -10px;
+            bottom: -10px;
+            cursor: nwse-resize;
+        }
+
+    </style>
+</head>
+
+<body class="theme-blue">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="preloader">
+            <div class="spinner-layer pl-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <p id="sss">Loading...</p>
+    </div>
+</div>
+<img id="imgTrans" src = "transparent.jpg" />
+<img id="imgShow" style="" />
+<img id="imgLogo" />
+<div class='resizable' id="imgContainer">
+    <img id="resizeImage" class='resizers'>
+    <div class='resizer top-left'></div>
+    <div class='resizer top-right'></div>
+    <div class='resizer bottom-left'></div>
+    <div class='resizer bottom-right'></div>
+</div>
+<canvas id="imgCanvas" style="position:absolute;display: none;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+<canvas id="myCanvas" style="display: none;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+<br>
+<!-----button----->
+<div class="button-group" style="position: relative;z-index: 300;">
+    <span class="btn fileinput-button col-sm-4" style = "cursor:pointer;height: 42px; font-size: 15px;
+    background-color: #ffb400;color: #000000;">
+        <span style="top: 6px;cursor:pointer;"><a href="#" style="color: black">UPLOAD PHOTO</a></span>
+        <input id="imageFile" type="file" style="cursor:pointer;" onchange="previewImage(this)">
+    </span>
+    <button type="button" class="btn col-sm-4 btn-rotate" style="cursor:pointer;height: 42px; width: 42px; font-size: 15px;
+    cursor:auto;background-image: url('button.png');color: #000000;" onclick="rotate()">
+    </button>
+    <button type="button" class="btn col-sm-4 btn-download" style="cursor:pointer;height: 42px; font-size: 15px;
+    cursor:auto;background-color: #ffb400;color: #000000;" onclick="download()">
+        <span style="top: 1px">SAVE</span>
+    </button>
+</div>
+<div class="linkDiv">
+    <a href="https://open.spotify.com/album/5EBGCvO6upi3GNknMVe9x9" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink1 spotify" src="images/spotify.png" width="100%">
+    </a>
+    <a href="https://itunes.apple.com/us/album/ye/1392975931" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink2 apple" src="images/apple-music.png" width="100%">
+    </a>
+    <a href="https://tidal.com/browse/album/89768255" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink3 tidal" src="images/tidal.png" width="100%">
+    </a>
+</div>
+<div class="linkDiv linkDiv1">
+    <a href="https://itunes.apple.com/us/album/ye/1392975931" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink1 apple" src="images/itunes.png" width="100%">
+    </a>
+    <a href="https://play.google.com/store/music/album/Kanye_West_ye" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink2 spotify" src="images/google-play.png" width="100%">
+    </a>
+    <a href="http://www.deezer.com/album/64930472" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink3 spotify" src="images/soundcloud.png" width="100%">
+    </a>
+</div>
+<div class="linkDiv linkDiv2">
+    <a href="https://soundcloud.com/kanyewest/sets/ye-47" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink1 tidal" src="images/deezer.png" width="100%">
+    </a>
+    <a href="https://www.amazon.com/dp/B07DGGP1FY" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink2 tidal" src="images/amazon.png" width="100%">
+    </a>
+    <a href="https://www.pandora.com/artist/kanye-west/ye-explicit/ALzKpdJK2hjxrh2" class="col-sm-4 linkURL" target="_blank" style="z-index: 300;position: relative">
+        <img class="imgLink imgLink3 apple" src="images/pandora.png" width="100%">
+    </a>
+</div>
+
+<script src="plugins/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="plugins/bootstrap/js/bootstrap.js"></script>
+
+<!-- Select Plugin Js -->
+<script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+<!-- Slimscroll Plugin Js -->
+<script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+<!-- Bootstrap Notify Plugin Js -->
+<script src="plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="plugins/node-waves/waves.js"></script>
+
+<!-- Custom Js -->
+<script src="js/admin.js"></script>
+
+<!-- Demo Js -->
+<script src="js/pages/index.js"></script>
+</body>
+
+</html>
