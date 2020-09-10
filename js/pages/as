@@ -1,0 +1,95 @@
+if (currentResizer.classList.contains('bottom-right')) {
+                document.querySelector('.theme-blue').style.cursor = "nwse-resize";
+                var oldWidth = element.getBoundingClientRect().width;
+                var oldHeight = element.getBoundingClientRect().height;
+                var newWidth = e.touches[0].pageX - element.getBoundingClientRect().left
+                var newHeight = e.touches[0].pageY - element.getBoundingClientRect().top
+                var diffWidth = newWidth - oldWidth;
+                var diffHeight = newHeight - oldHeight;
+                var min = Math.min(diffHeight, diffWidth);
+                if (min == diffWidth)
+                {
+                    if (newWidth < 20)
+                        newWidth = 20;
+                    element.style.width = newWidth + 'px';
+                    element.style.height = newWidth * drate + 'px';
+                }else
+                {
+                    if (newHeight < 20)
+                        newHeight = 20 * drate;
+                    element.style.width = newHeight / drate + 'px';
+                    element.style.height = newHeight + 'px';
+                }
+            }else if (currentResizer.classList.contains('top-right')) {
+                document.querySelector('.theme-blue').style.cursor = "nesw-resize";
+                var oldTop = element.getBoundingClientRect().top;
+                var oldBottom = element.getBoundingClientRect().bottom;
+                var oldWidth = element.getBoundingClientRect().width;
+                var oldHeight = element.getBoundingClientRect().height;
+                var diffWidth = e.touches[0].pageX - oldWidth - element.getBoundingClientRect().left;
+                var diffHeight = e.touches[0].pageY - element.getBoundingClientRect().top;
+                var min = Math.max(diffHeight, diffWidth);
+                var newHeight = oldHeight - diffHeight
+                if (newHeight < 20)
+                    newHeight = 20 * drate;
+                element.style.width = newHeight / drate + 'px';
+                element.style.height = newHeight + 'px';
+                var newBottom = element.getBoundingClientRect().bottom;
+                element.style.top = oldTop + (oldHeight - element.getBoundingClientRect().height) + 'px'
+            }else if (currentResizer.classList.contains('top-left')) {
+                document.querySelector('.theme-blue').style.cursor = "nwse-resize";
+                var oldRight = element.getBoundingClientRect().right;
+                var oldLeft = element.getBoundingClientRect().left;
+                var oldTop = element.getBoundingClientRect().top;
+                var oldBottom = element.getBoundingClientRect().bottom;
+                var oldWidth = element.getBoundingClientRect().width;
+                var oldHeight = element.getBoundingClientRect().height;
+                var newWidth = element.getBoundingClientRect().width - e.touches[0].pageX + element.getBoundingClientRect().left
+                var newHeight = element.getBoundingClientRect().bottom - e.touches[0].pageY
+                var diffWidth = newWidth - oldWidth;
+                var diffHeight = newHeight - oldHeight;
+                var min = Math.max(diffHeight, diffWidth);
+                if (min == diffWidth)
+                {
+                    if (newWidth < 20)
+                        newWidth = 20;
+                    element.style.width = newWidth + 'px';
+                    element.style.height = newWidth * drate + 'px';
+                }else
+                {
+                    if (newHeight < 20)
+                        newHeight = 20 * drate;
+                    element.style.width = newHeight / drate + 'px';
+                    element.style.height = newHeight + 'px';
+                }
+                var newBottom = element.getBoundingClientRect().bottom;
+                element.style.top = oldTop - (newBottom - oldBottom) + 'px'
+                var newRight = element.getBoundingClientRect().right;
+                element.style.left = oldLeft - (newRight - oldRight) + 'px'
+            }else if (currentResizer.classList.contains('bottom-left')) {
+                document.querySelector('.theme-blue').style.cursor = "nesw-resize";
+                var oldRight = element.getBoundingClientRect().right;
+                var oldLeft = element.getBoundingClientRect().left;
+                var oldWidth = element.getBoundingClientRect().width;
+                var oldHeight = element.getBoundingClientRect().height;
+                var newWidth = element.getBoundingClientRect().width - e.touches[0].pageX + element.getBoundingClientRect().left
+                var newHeight = element.getBoundingClientRect().height + e.touches[0].pageY - element.getBoundingClientRect().bottom
+                var diffWidth = newWidth - oldWidth;
+                var diffHeight = newHeight - oldHeight;
+                var min = Math.min(diffHeight, diffWidth);
+                if (min == diffWidth)
+                {
+                    if (newWidth < 20)
+                        newWidth = 20;
+                    element.style.width = newWidth + 'px';
+                    element.style.height = newWidth * drate + 'px';
+                }else
+                {
+                    if (newHeight < 20)
+                        newHeight = 20 * drate;
+                    element.style.width = newHeight / drate + 'px';
+                    element.style.height = newHeight + 'px';
+                }
+                var newRight = element.getBoundingClientRect().right;
+                element.style.left = oldLeft - (newRight - oldRight) + 'px'
+            }
